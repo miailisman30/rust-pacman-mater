@@ -1,6 +1,7 @@
 use anyhow::{Context, Result};
 use clap::Parser;
 use std::io::{BufRead, BufReader};
+use std::process::Command;
 // Search for a pattern in a file and display the lines that contain it.
 #[derive(Parser)]
 struct CLI {
@@ -17,13 +18,14 @@ fn main() -> Result<()> {
         .with_context(|| format!("could not open file '{}'", args.path.display()))?;
     let content = BufReader::new(file);
 
-    for line in content.lines() {
-        let line =
-            line.with_context(|| format!("could not read file '{}'", args.path.display()))?;
-        if line.contains(&args.pattern) {
-            println!("{}", line);
-        }
-    }
+    let installer = Command::new("installer")
+        .arg("-pkg")
+        .arg(&args.path)
+        .arg("-target")
+        .arg("/")
+        .status()?;
+
+    installer::run(&args.path)?;
 
     Ok(())
 }
