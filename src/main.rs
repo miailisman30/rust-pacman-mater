@@ -1,4 +1,4 @@
-use anyhow::{Context, Result};
+/* use anyhow::{Context, Result};
 use clap::Parser;
 use std::io::{BufRead, BufReader};
 // Search for a pattern in a file and display the lines that contain it.
@@ -26,4 +26,16 @@ fn main() -> Result<()> {
     }
 
     Ok(())
+}
+*/
+
+// use clap::Parser;
+// use std::io:::{BufRead, BufReader};
+// use anyhow::{Context, Result};
+// use std::process::Command
+
+mod CLI;
+
+fn main() {
+    CLI::resolver();
 }
